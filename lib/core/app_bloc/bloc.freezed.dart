@@ -18,29 +18,29 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TaskEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String title, String body) addTask,
-    required TResult Function(
-            int len, int id, String title, String body, bool isDone)
+    required TResult Function(int id, String title, String body) addTask,
+    required TResult Function(int id, String title, String body, bool isDone)
         doneTask,
     required TResult Function() deleteAllTasks,
+    required TResult Function() deleteAllCompleted,
     required TResult Function() openTaskPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String title, String body)? addTask,
-    TResult? Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult? Function(int id, String title, String body)? addTask,
+    TResult? Function(int id, String title, String body, bool isDone)? doneTask,
     TResult? Function()? deleteAllTasks,
+    TResult? Function()? deleteAllCompleted,
     TResult? Function()? openTaskPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String title, String body)? addTask,
-    TResult Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult Function(int id, String title, String body)? addTask,
+    TResult Function(int id, String title, String body, bool isDone)? doneTask,
     TResult Function()? deleteAllTasks,
+    TResult Function()? deleteAllCompleted,
     TResult Function()? openTaskPage,
     required TResult orElse(),
   }) =>
@@ -50,6 +50,7 @@ mixin _$TaskEvent {
     required TResult Function(_AddTask value) addTask,
     required TResult Function(_DoneTask value) doneTask,
     required TResult Function(_DeleteAllTasks value) deleteAllTasks,
+    required TResult Function(_DeleteAllCompleted value) deleteAllCompleted,
     required TResult Function(_TaskPageOpened value) openTaskPage,
   }) =>
       throw _privateConstructorUsedError;
@@ -58,6 +59,7 @@ mixin _$TaskEvent {
     TResult? Function(_AddTask value)? addTask,
     TResult? Function(_DoneTask value)? doneTask,
     TResult? Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult? Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult? Function(_TaskPageOpened value)? openTaskPage,
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +68,7 @@ mixin _$TaskEvent {
     TResult Function(_AddTask value)? addTask,
     TResult Function(_DoneTask value)? doneTask,
     TResult Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult Function(_TaskPageOpened value)? openTaskPage,
     required TResult orElse(),
   }) =>
@@ -95,7 +98,7 @@ abstract class _$$AddTaskImplCopyWith<$Res> {
           _$AddTaskImpl value, $Res Function(_$AddTaskImpl) then) =
       __$$AddTaskImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String title, String body});
+  $Res call({int id, String title, String body});
 }
 
 /// @nodoc
@@ -109,10 +112,15 @@ class __$$AddTaskImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? title = null,
     Object? body = null,
   }) {
     return _then(_$AddTaskImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -128,8 +136,11 @@ class __$$AddTaskImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddTaskImpl implements _AddTask {
-  const _$AddTaskImpl({required this.title, required this.body});
+  const _$AddTaskImpl(
+      {required this.id, required this.title, required this.body});
 
+  @override
+  final int id;
   @override
   final String title;
   @override
@@ -137,7 +148,7 @@ class _$AddTaskImpl implements _AddTask {
 
   @override
   String toString() {
-    return 'TaskEvent.addTask(title: $title, body: $body)';
+    return 'TaskEvent.addTask(id: $id, title: $title, body: $body)';
   }
 
   @override
@@ -145,12 +156,13 @@ class _$AddTaskImpl implements _AddTask {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddTaskImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.body, body) || other.body == body));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, body);
+  int get hashCode => Object.hash(runtimeType, id, title, body);
 
   @JsonKey(ignore: true)
   @override
@@ -161,40 +173,40 @@ class _$AddTaskImpl implements _AddTask {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String title, String body) addTask,
-    required TResult Function(
-            int len, int id, String title, String body, bool isDone)
+    required TResult Function(int id, String title, String body) addTask,
+    required TResult Function(int id, String title, String body, bool isDone)
         doneTask,
     required TResult Function() deleteAllTasks,
+    required TResult Function() deleteAllCompleted,
     required TResult Function() openTaskPage,
   }) {
-    return addTask(title, body);
+    return addTask(id, title, body);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String title, String body)? addTask,
-    TResult? Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult? Function(int id, String title, String body)? addTask,
+    TResult? Function(int id, String title, String body, bool isDone)? doneTask,
     TResult? Function()? deleteAllTasks,
+    TResult? Function()? deleteAllCompleted,
     TResult? Function()? openTaskPage,
   }) {
-    return addTask?.call(title, body);
+    return addTask?.call(id, title, body);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String title, String body)? addTask,
-    TResult Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult Function(int id, String title, String body)? addTask,
+    TResult Function(int id, String title, String body, bool isDone)? doneTask,
     TResult Function()? deleteAllTasks,
+    TResult Function()? deleteAllCompleted,
     TResult Function()? openTaskPage,
     required TResult orElse(),
   }) {
     if (addTask != null) {
-      return addTask(title, body);
+      return addTask(id, title, body);
     }
     return orElse();
   }
@@ -205,6 +217,7 @@ class _$AddTaskImpl implements _AddTask {
     required TResult Function(_AddTask value) addTask,
     required TResult Function(_DoneTask value) doneTask,
     required TResult Function(_DeleteAllTasks value) deleteAllTasks,
+    required TResult Function(_DeleteAllCompleted value) deleteAllCompleted,
     required TResult Function(_TaskPageOpened value) openTaskPage,
   }) {
     return addTask(this);
@@ -216,6 +229,7 @@ class _$AddTaskImpl implements _AddTask {
     TResult? Function(_AddTask value)? addTask,
     TResult? Function(_DoneTask value)? doneTask,
     TResult? Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult? Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult? Function(_TaskPageOpened value)? openTaskPage,
   }) {
     return addTask?.call(this);
@@ -227,6 +241,7 @@ class _$AddTaskImpl implements _AddTask {
     TResult Function(_AddTask value)? addTask,
     TResult Function(_DoneTask value)? doneTask,
     TResult Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult Function(_TaskPageOpened value)? openTaskPage,
     required TResult orElse(),
   }) {
@@ -239,9 +254,11 @@ class _$AddTaskImpl implements _AddTask {
 
 abstract class _AddTask implements TaskEvent {
   const factory _AddTask(
-      {required final String title,
+      {required final int id,
+      required final String title,
       required final String body}) = _$AddTaskImpl;
 
+  int get id;
   String get title;
   String get body;
   @JsonKey(ignore: true)
@@ -255,7 +272,7 @@ abstract class _$$DoneTaskImplCopyWith<$Res> {
           _$DoneTaskImpl value, $Res Function(_$DoneTaskImpl) then) =
       __$$DoneTaskImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int len, int id, String title, String body, bool isDone});
+  $Res call({int id, String title, String body, bool isDone});
 }
 
 /// @nodoc
@@ -269,17 +286,12 @@ class __$$DoneTaskImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? len = null,
     Object? id = null,
     Object? title = null,
     Object? body = null,
     Object? isDone = null,
   }) {
     return _then(_$DoneTaskImpl(
-      len: null == len
-          ? _value.len
-          : len // ignore: cast_nullable_to_non_nullable
-              as int,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -304,14 +316,11 @@ class __$$DoneTaskImplCopyWithImpl<$Res>
 
 class _$DoneTaskImpl implements _DoneTask {
   const _$DoneTaskImpl(
-      {required this.len,
-      required this.id,
+      {required this.id,
       required this.title,
       required this.body,
       required this.isDone});
 
-  @override
-  final int len;
   @override
   final int id;
   @override
@@ -323,7 +332,7 @@ class _$DoneTaskImpl implements _DoneTask {
 
   @override
   String toString() {
-    return 'TaskEvent.doneTask(len: $len, id: $id, title: $title, body: $body, isDone: $isDone)';
+    return 'TaskEvent.doneTask(id: $id, title: $title, body: $body, isDone: $isDone)';
   }
 
   @override
@@ -331,7 +340,6 @@ class _$DoneTaskImpl implements _DoneTask {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DoneTaskImpl &&
-            (identical(other.len, len) || other.len == len) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.body, body) || other.body == body) &&
@@ -339,7 +347,7 @@ class _$DoneTaskImpl implements _DoneTask {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, len, id, title, body, isDone);
+  int get hashCode => Object.hash(runtimeType, id, title, body, isDone);
 
   @JsonKey(ignore: true)
   @override
@@ -350,40 +358,40 @@ class _$DoneTaskImpl implements _DoneTask {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String title, String body) addTask,
-    required TResult Function(
-            int len, int id, String title, String body, bool isDone)
+    required TResult Function(int id, String title, String body) addTask,
+    required TResult Function(int id, String title, String body, bool isDone)
         doneTask,
     required TResult Function() deleteAllTasks,
+    required TResult Function() deleteAllCompleted,
     required TResult Function() openTaskPage,
   }) {
-    return doneTask(len, id, title, body, isDone);
+    return doneTask(id, title, body, isDone);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String title, String body)? addTask,
-    TResult? Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult? Function(int id, String title, String body)? addTask,
+    TResult? Function(int id, String title, String body, bool isDone)? doneTask,
     TResult? Function()? deleteAllTasks,
+    TResult? Function()? deleteAllCompleted,
     TResult? Function()? openTaskPage,
   }) {
-    return doneTask?.call(len, id, title, body, isDone);
+    return doneTask?.call(id, title, body, isDone);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String title, String body)? addTask,
-    TResult Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult Function(int id, String title, String body)? addTask,
+    TResult Function(int id, String title, String body, bool isDone)? doneTask,
     TResult Function()? deleteAllTasks,
+    TResult Function()? deleteAllCompleted,
     TResult Function()? openTaskPage,
     required TResult orElse(),
   }) {
     if (doneTask != null) {
-      return doneTask(len, id, title, body, isDone);
+      return doneTask(id, title, body, isDone);
     }
     return orElse();
   }
@@ -394,6 +402,7 @@ class _$DoneTaskImpl implements _DoneTask {
     required TResult Function(_AddTask value) addTask,
     required TResult Function(_DoneTask value) doneTask,
     required TResult Function(_DeleteAllTasks value) deleteAllTasks,
+    required TResult Function(_DeleteAllCompleted value) deleteAllCompleted,
     required TResult Function(_TaskPageOpened value) openTaskPage,
   }) {
     return doneTask(this);
@@ -405,6 +414,7 @@ class _$DoneTaskImpl implements _DoneTask {
     TResult? Function(_AddTask value)? addTask,
     TResult? Function(_DoneTask value)? doneTask,
     TResult? Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult? Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult? Function(_TaskPageOpened value)? openTaskPage,
   }) {
     return doneTask?.call(this);
@@ -416,6 +426,7 @@ class _$DoneTaskImpl implements _DoneTask {
     TResult Function(_AddTask value)? addTask,
     TResult Function(_DoneTask value)? doneTask,
     TResult Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult Function(_TaskPageOpened value)? openTaskPage,
     required TResult orElse(),
   }) {
@@ -428,13 +439,11 @@ class _$DoneTaskImpl implements _DoneTask {
 
 abstract class _DoneTask implements TaskEvent {
   const factory _DoneTask(
-      {required final int len,
-      required final int id,
+      {required final int id,
       required final String title,
       required final String body,
       required final bool isDone}) = _$DoneTaskImpl;
 
-  int get len;
   int get id;
   String get title;
   String get body;
@@ -482,11 +491,11 @@ class _$DeleteAllTasksImpl implements _DeleteAllTasks {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String title, String body) addTask,
-    required TResult Function(
-            int len, int id, String title, String body, bool isDone)
+    required TResult Function(int id, String title, String body) addTask,
+    required TResult Function(int id, String title, String body, bool isDone)
         doneTask,
     required TResult Function() deleteAllTasks,
+    required TResult Function() deleteAllCompleted,
     required TResult Function() openTaskPage,
   }) {
     return deleteAllTasks();
@@ -495,10 +504,10 @@ class _$DeleteAllTasksImpl implements _DeleteAllTasks {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String title, String body)? addTask,
-    TResult? Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult? Function(int id, String title, String body)? addTask,
+    TResult? Function(int id, String title, String body, bool isDone)? doneTask,
     TResult? Function()? deleteAllTasks,
+    TResult? Function()? deleteAllCompleted,
     TResult? Function()? openTaskPage,
   }) {
     return deleteAllTasks?.call();
@@ -507,10 +516,10 @@ class _$DeleteAllTasksImpl implements _DeleteAllTasks {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String title, String body)? addTask,
-    TResult Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult Function(int id, String title, String body)? addTask,
+    TResult Function(int id, String title, String body, bool isDone)? doneTask,
     TResult Function()? deleteAllTasks,
+    TResult Function()? deleteAllCompleted,
     TResult Function()? openTaskPage,
     required TResult orElse(),
   }) {
@@ -526,6 +535,7 @@ class _$DeleteAllTasksImpl implements _DeleteAllTasks {
     required TResult Function(_AddTask value) addTask,
     required TResult Function(_DoneTask value) doneTask,
     required TResult Function(_DeleteAllTasks value) deleteAllTasks,
+    required TResult Function(_DeleteAllCompleted value) deleteAllCompleted,
     required TResult Function(_TaskPageOpened value) openTaskPage,
   }) {
     return deleteAllTasks(this);
@@ -537,6 +547,7 @@ class _$DeleteAllTasksImpl implements _DeleteAllTasks {
     TResult? Function(_AddTask value)? addTask,
     TResult? Function(_DoneTask value)? doneTask,
     TResult? Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult? Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult? Function(_TaskPageOpened value)? openTaskPage,
   }) {
     return deleteAllTasks?.call(this);
@@ -548,6 +559,7 @@ class _$DeleteAllTasksImpl implements _DeleteAllTasks {
     TResult Function(_AddTask value)? addTask,
     TResult Function(_DoneTask value)? doneTask,
     TResult Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult Function(_TaskPageOpened value)? openTaskPage,
     required TResult orElse(),
   }) {
@@ -560,6 +572,127 @@ class _$DeleteAllTasksImpl implements _DeleteAllTasks {
 
 abstract class _DeleteAllTasks implements TaskEvent {
   const factory _DeleteAllTasks() = _$DeleteAllTasksImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteAllCompletedImplCopyWith<$Res> {
+  factory _$$DeleteAllCompletedImplCopyWith(_$DeleteAllCompletedImpl value,
+          $Res Function(_$DeleteAllCompletedImpl) then) =
+      __$$DeleteAllCompletedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DeleteAllCompletedImplCopyWithImpl<$Res>
+    extends _$TaskEventCopyWithImpl<$Res, _$DeleteAllCompletedImpl>
+    implements _$$DeleteAllCompletedImplCopyWith<$Res> {
+  __$$DeleteAllCompletedImplCopyWithImpl(_$DeleteAllCompletedImpl _value,
+      $Res Function(_$DeleteAllCompletedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$DeleteAllCompletedImpl implements _DeleteAllCompleted {
+  const _$DeleteAllCompletedImpl();
+
+  @override
+  String toString() {
+    return 'TaskEvent.deleteAllCompleted()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DeleteAllCompletedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id, String title, String body) addTask,
+    required TResult Function(int id, String title, String body, bool isDone)
+        doneTask,
+    required TResult Function() deleteAllTasks,
+    required TResult Function() deleteAllCompleted,
+    required TResult Function() openTaskPage,
+  }) {
+    return deleteAllCompleted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id, String title, String body)? addTask,
+    TResult? Function(int id, String title, String body, bool isDone)? doneTask,
+    TResult? Function()? deleteAllTasks,
+    TResult? Function()? deleteAllCompleted,
+    TResult? Function()? openTaskPage,
+  }) {
+    return deleteAllCompleted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id, String title, String body)? addTask,
+    TResult Function(int id, String title, String body, bool isDone)? doneTask,
+    TResult Function()? deleteAllTasks,
+    TResult Function()? deleteAllCompleted,
+    TResult Function()? openTaskPage,
+    required TResult orElse(),
+  }) {
+    if (deleteAllCompleted != null) {
+      return deleteAllCompleted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddTask value) addTask,
+    required TResult Function(_DoneTask value) doneTask,
+    required TResult Function(_DeleteAllTasks value) deleteAllTasks,
+    required TResult Function(_DeleteAllCompleted value) deleteAllCompleted,
+    required TResult Function(_TaskPageOpened value) openTaskPage,
+  }) {
+    return deleteAllCompleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddTask value)? addTask,
+    TResult? Function(_DoneTask value)? doneTask,
+    TResult? Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult? Function(_DeleteAllCompleted value)? deleteAllCompleted,
+    TResult? Function(_TaskPageOpened value)? openTaskPage,
+  }) {
+    return deleteAllCompleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddTask value)? addTask,
+    TResult Function(_DoneTask value)? doneTask,
+    TResult Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult Function(_DeleteAllCompleted value)? deleteAllCompleted,
+    TResult Function(_TaskPageOpened value)? openTaskPage,
+    required TResult orElse(),
+  }) {
+    if (deleteAllCompleted != null) {
+      return deleteAllCompleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteAllCompleted implements TaskEvent {
+  const factory _DeleteAllCompleted() = _$DeleteAllCompletedImpl;
 }
 
 /// @nodoc
@@ -600,11 +733,11 @@ class _$TaskPageOpenedImpl implements _TaskPageOpened {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String title, String body) addTask,
-    required TResult Function(
-            int len, int id, String title, String body, bool isDone)
+    required TResult Function(int id, String title, String body) addTask,
+    required TResult Function(int id, String title, String body, bool isDone)
         doneTask,
     required TResult Function() deleteAllTasks,
+    required TResult Function() deleteAllCompleted,
     required TResult Function() openTaskPage,
   }) {
     return openTaskPage();
@@ -613,10 +746,10 @@ class _$TaskPageOpenedImpl implements _TaskPageOpened {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String title, String body)? addTask,
-    TResult? Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult? Function(int id, String title, String body)? addTask,
+    TResult? Function(int id, String title, String body, bool isDone)? doneTask,
     TResult? Function()? deleteAllTasks,
+    TResult? Function()? deleteAllCompleted,
     TResult? Function()? openTaskPage,
   }) {
     return openTaskPage?.call();
@@ -625,10 +758,10 @@ class _$TaskPageOpenedImpl implements _TaskPageOpened {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String title, String body)? addTask,
-    TResult Function(int len, int id, String title, String body, bool isDone)?
-        doneTask,
+    TResult Function(int id, String title, String body)? addTask,
+    TResult Function(int id, String title, String body, bool isDone)? doneTask,
     TResult Function()? deleteAllTasks,
+    TResult Function()? deleteAllCompleted,
     TResult Function()? openTaskPage,
     required TResult orElse(),
   }) {
@@ -644,6 +777,7 @@ class _$TaskPageOpenedImpl implements _TaskPageOpened {
     required TResult Function(_AddTask value) addTask,
     required TResult Function(_DoneTask value) doneTask,
     required TResult Function(_DeleteAllTasks value) deleteAllTasks,
+    required TResult Function(_DeleteAllCompleted value) deleteAllCompleted,
     required TResult Function(_TaskPageOpened value) openTaskPage,
   }) {
     return openTaskPage(this);
@@ -655,6 +789,7 @@ class _$TaskPageOpenedImpl implements _TaskPageOpened {
     TResult? Function(_AddTask value)? addTask,
     TResult? Function(_DoneTask value)? doneTask,
     TResult? Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult? Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult? Function(_TaskPageOpened value)? openTaskPage,
   }) {
     return openTaskPage?.call(this);
@@ -666,6 +801,7 @@ class _$TaskPageOpenedImpl implements _TaskPageOpened {
     TResult Function(_AddTask value)? addTask,
     TResult Function(_DoneTask value)? doneTask,
     TResult Function(_DeleteAllTasks value)? deleteAllTasks,
+    TResult Function(_DeleteAllCompleted value)? deleteAllCompleted,
     TResult Function(_TaskPageOpened value)? openTaskPage,
     required TResult orElse(),
   }) {

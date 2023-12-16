@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:flutter/widgets.dart' hide Table;
-import 'package:hwm48/domain/entities/task_items.dart';
+import 'package:hwm48/core/domain/entities/task_items.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqlite3/sqlite3.dart';
@@ -30,22 +29,20 @@ class AppDatabase extends _$AppDatabase {
   // }
 
   Future<bool> updateIsDone(TaskItemsCompanion comp) async {
-    final int id = comp.id.value;
-    final upd = update(taskItems);
-    final rep = await (upd..where((tbl) => tbl.id.equals(id))).replace(comp);
-    return rep;
+    return await (update(taskItems)).replace(comp);
   }
 
   Future<int> insertTaskItem(TaskItemsCompanion table) async {
     return await into(taskItems).insert(table);
   }
 
-  // Future<int> deleteTaskItem(int id) async {
-  //   return await (delete(taskItems)..where((tbl) => tbl.id.equals(id))).go();
-  // }
-
   Future<int> deleteAllTasks() async {
     return await (delete(taskItems)).go();
+  }
+
+  Future<int> deleteAllCompleted() async {
+    return await (delete(taskItems)..where((tbl) => tbl.isDone.equals(true)))
+        .go();
   }
 }
 
