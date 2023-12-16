@@ -1,0 +1,40 @@
+name: hwm48
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.5 <4.0.0'
+
+dependencies:
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  bloc: ^8.1.2
+  flutter_bloc: ^8.1.3
+  flutter_svg: ^2.0.9
+  path_provider: ^2.1.1
+  sqlite3_flutter_libs: ^0.5.0
+  path: ^1.8.3
+  flutter_slidable: ^3.0.1
+  collection: ^1.17.2
+  drift: ^2.14.1
+  sqlite3: ^2.2.0
+  auto_size_text: ^3.0.0
+  freezed_annotation:
+  json_annotation:
+
+
+dev_dependencies:
+  freezed:
+  json_serializable:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
+  drift_dev: ^2.14.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
