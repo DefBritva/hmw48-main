@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hwm48/core/app_bloc/bloc.dart';
@@ -21,7 +19,7 @@ class TaskApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (context) => TaskService(),
-      child: App(),
+      child: const App(),
     );
   }
 }

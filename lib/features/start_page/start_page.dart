@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hwm48/core/app_bloc/bloc.dart';
@@ -18,26 +16,26 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   void initState() {
-    context.read<TaskBloc>().add(TaskEvent.openTaskPage());
+    context.read<TaskBloc>().add(const TaskEvent.openTaskPage());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        endDrawer: MenuDrawer(),
+        endDrawer: const MenuDrawer(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).pushNamed('/start/form');
           },
           backgroundColor: Colors.deepPurple,
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
         ),
-        appBar: StartPageAppBar(),
+        appBar: const StartPageAppBar(),
         backgroundColor: Colors.deepPurpleAccent,
-        body: StartBody());
+        body: const StartBody());
   }
 }
