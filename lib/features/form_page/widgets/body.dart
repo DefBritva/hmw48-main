@@ -26,7 +26,7 @@ class FormPageBody extends StatelessWidget {
               flex: 2,
               child: InputWidget(
                   controllerText: titleController,
-                  maxLen: 14,
+                  maxLen: 100,
                   hint: 'Enter task title'),
             ),
             const SizedBox(height: 50),
@@ -34,28 +34,28 @@ class FormPageBody extends StatelessWidget {
               flex: 3,
               child: InputWidget(
                 controllerText: bodyController,
-                maxLen: 100,
+                maxLen: 20000,
                 hint: ' Enter task text',
               ),
             ),
             Expanded(flex: 1, child: Container()),
             Builder(builder: (context) {
-              final state = context.read<TaskBloc>().state;
+              final state = context.read<TasksBloc>().state;
 
               return state.when(
                   initial: () => None,
                   loadTasks: (tasks) => ElevatedButton(
                         onPressed: () {
-                          context.read<TaskBloc>().add(
-                                TaskEvent.addTask(
+                          context.read<TasksBloc>().add(
+                                TasksEvent.addTask(
                                   id: tasks.length,
                                   title: titleController.text,
                                   body: bodyController.text,
                                 ),
                               );
                           context
-                              .read<TaskBloc>()
-                              .add(const TaskEvent.openTaskPage());
+                              .read<TasksBloc>()
+                              .add(const TasksEvent.openTaskPage());
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(

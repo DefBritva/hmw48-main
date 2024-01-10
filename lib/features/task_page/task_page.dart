@@ -1,122 +1,64 @@
-// // ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
-// import 'package:flutter/material.dart';
-// import 'package:hwm48/styles/text_styles.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hwm48/features/task_page/bloc/task_bloc.dart';
 
-// class TaskPage extends StatefulWidget {
-//   const TaskPage({super.key});
+class TaskPage extends StatefulWidget {
+  const TaskPage({super.key});
 
-//   @override
-//   State<TaskPage> createState() => _TaskPageState();
-// }
+  @override
+  State<TaskPage> createState() => _TaskPageState();
+}
 
-// class _TaskPageState extends State<TaskPage> {
-//   late FocusNode focus;
-//   final textController = TextEditingController();
-
-//   bool isEnabled = false;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     focus = FocusNode();
-//   }
-
-//   @override
-//   void dispose() {
-//     focus.dispose();
-//     textController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.deepPurpleAccent,
-//       resizeToAvoidBottomInset: false,
-//       appBar: AppBar(
-//         leading: BackButton(
-//           color: Colors.white,
-//           onPressed: () {
-//             Navigator.of(context).pop();
-//           },
-//         ),
-//         actions: [
-//           isEnabled
-//               ? IconButton(
-//                   onPressed: () {
-//                     focus.unfocus();
-//                     isEnabled = false;
-//                   },
-//                   icon: Icon(
-//                     Icons.check,
-//                     color: Colors.white,
-//                   ))
-//               : SizedBox(),
-//           IconButton(
-//               onPressed: () {
-//                 setState(() {
-//                   isEnabled = true;
-
-//                   focus.requestFocus();
-//                 });
-//               },
-//               icon: Icon(
-//                 Icons.edit,
-//                 color: Colors.white,
-//               ))
-//         ],
-//         title: Text(
-//           'title',
-//           style: TextStyles.textStyle,
-//         ),
-//         centerTitle: true,
-//         backgroundColor: Colors.black54,
-//       ),
-//       body: SafeArea(
-//         child: Padding(
-//           padding: EdgeInsets.symmetric(
-//               horizontal: MediaQuery.of(context).size.width * 0.05,
-//               vertical: MediaQuery.of(context).size.height * 0.01),
-//           child: Column(
-//             children: [
-//               Container(
-//                 padding: EdgeInsets.all(0),
-//                 decoration: BoxDecoration(
-//                     color: Colors.white,
-//                     border: Border.all(color: Colors.grey),
-//                     shape: BoxShape.circle),
-//               ),
-//               SizedBox(
-//                 height: 25,
-//               ),
-//               SizedBox(
-//                   width: MediaQuery.of(context).size.width * 0.9,
-//                   height: MediaQuery.of(context).size.height * 0.5,
-//                   child: Theme(
-//                     data: ThemeData(disabledColor: Colors.black),
-//                     child: TextField(
-//                       onTap: () {
-//                         if (!focus.hasFocus) {
-//                           setState(() {
-//                             focus.requestFocus();
-//                           });
-//                         }
-//                       },
-//                       focusNode: focus,
-//                       textAlign: TextAlign.center,
-//                       enabled: isEnabled,
-//                       controller: textController,
-//                       style: const TextStyle(fontSize: 20, color: Colors.black),
-//                       decoration: const InputDecoration.collapsed(hintText: ''),
-//                       maxLines: 99999,
-//                       autofocus: false,
-//                     ),
-//                   )),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _TaskPageState extends State<TaskPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.deepPurpleAccent,
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text(
+          'Task',
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: Colors.black54,
+      ),
+      body: SafeArea(
+          child: Padding(
+        padding: EdgeInsets.all(16),
+        child: BlocBuilder<TaskBloc, TaskState>(
+          builder: (context, state) {
+            return state.whenOrNull(defaultState: (task) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            task.title,
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
+                        SizedBox(height: 50),
+                        Text(task.content,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 16)),
+                      ],
+                    ),
+                  );
+                }) ??
+                SizedBox();
+          },
+        ),
+      )),
+    );
+  }
+}

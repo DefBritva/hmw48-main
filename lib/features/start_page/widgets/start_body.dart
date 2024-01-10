@@ -1,9 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hwm48/core/app_bloc/bloc.dart';
-import 'package:hwm48/core/presentation/widgets/none.dart';
+import 'package:hwm48/core/utils/app_navigation.dart';
+import 'package:hwm48/features/task_page/bloc/task_bloc.dart';
 
 class StartBody extends StatelessWidget {
   const StartBody({
@@ -13,16 +16,20 @@ class StartBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      final state = context.watch<TaskBloc>().state;
+      final state = context.watch<TasksBloc>().state;
       return state.when(
-          initial: () => None,
+          initial: () => Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.grey,
+                  color: Colors.yellowAccent,
+                ),
+              ),
           loadTasks: (tasks) => GridView.builder(
                 itemCount: tasks.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                 ),
                 itemBuilder: ((context, index) {
-                  final tasksR = tasks.reversed.toList();
                   return GestureDetector(
                     onLongPress: () {
                       showDialog(
@@ -40,11 +47,11 @@ class StartBody extends StatelessWidget {
                                     child: const Text('no')),
                                 TextButton(
                                     onPressed: () {
-                                      context.read<TaskBloc>().add(
-                                            TaskEvent.doneTask(
-                                              id: tasksR[index].id,
-                                              title: tasksR[index].title,
-                                              body: tasksR[index].content,
+                                      context.read<TasksBloc>().add(
+                                            TasksEvent.doneTask(
+                                              id: tasks[index].id,
+                                              title: tasks[index].title,
+                                              body: tasks[index].content,
                                               isDone: true,
                                             ),
                                           );
@@ -56,7 +63,11 @@ class StartBody extends StatelessWidget {
                           });
                     },
                     onTap: () {
-                      // Navigator.of(context).pushNamed('/start/task');
+                      context
+                          .read<TaskBloc>()
+                          .add(TaskEvent.openTask(id: index));
+
+                      AppNavigation.goTaskPage(context);
                     },
                     child: Stack(
                       children: [
@@ -71,31 +82,27 @@ class StartBody extends StatelessWidget {
                               vertical: 10, horizontal: 10),
                           padding: const EdgeInsets.all(10),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                tasksR[index].title,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(height: 7.5),
                               ConstrainedBox(
                                 constraints: BoxConstraints(
-                                  minWidth: 50,
+                                  minWidth: 100,
                                   maxWidth:
                                       MediaQuery.of(context).size.width * 0.45,
-                                  minHeight: 50,
+                                  minHeight: 100,
                                   maxHeight: 200,
                                 ),
                                 child: AutoSizeText(
-                                  minFontSize: 11,
-                                  maxFontSize: 14,
-                                  maxLines: 5,
-                                  tasksR[index].content,
-                                ),
+                                    minFontSize: 14,
+                                    maxFontSize: 16,
+                                    maxLines: 5,
+                                    tasks[index].title),
                               ),
                             ],
                           ),
                         ),
-                        tasksR[index].isDone
+                        tasks[index].isDone
                             ? Container(
                                 width: 200,
                                 height: 200,
@@ -112,7 +119,7 @@ class StartBody extends StatelessWidget {
                                       const Color.fromARGB(255, 27, 229, 132),
                                 ),
                               )
-                            : None
+                            : SizedBox(),
                       ],
                     ),
                   );

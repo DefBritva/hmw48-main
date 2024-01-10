@@ -23,17 +23,17 @@ class AppDatabase extends _$AppDatabase {
     return await select(taskItems).get();
   }
 
-  // Future<TaskItem> get(int id) async {
-  //   return await (select(taskItems)..where((tbl) => tbl.id.equals(id)))
-  //       .getSingle();
-  // }
+  Future<TaskItem> get(int id) async {
+    return await (select(taskItems)..where((tbl) => tbl.id.equals(id)))
+        .getSingle();
+  }
 
   Future<bool> updateIsDone(TaskItemsCompanion comp) async {
     return await (update(taskItems)).replace(comp);
   }
 
   Future<int> insertTaskItem(TaskItemsCompanion table) async {
-    return await into(taskItems).insert(table);
+    return await into(taskItems).insertOnConflictUpdate(table);
   }
 
   Future<int> deleteAllTasks() async {
