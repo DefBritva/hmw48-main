@@ -1,52 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hwm48/core/app_bloc/bloc.dart';
-import 'package:hwm48/core/utils/app_navigation.dart';
-
-import 'package:hwm48/features/start_page/widgets/app_bar.dart';
-import 'package:hwm48/features/start_page/widgets/start_body.dart';
-
-class StartPage extends StatefulWidget {
-  const StartPage({super.key});
-
-  @override
-  State<StartPage> createState() => _StartPageState();
-}
-
-class _StartPageState extends State<StartPage> {
-  @override
-  void initState() {
-    context.read<TasksBloc>().add(const TasksEvent.openTaskPage());
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: StartPageAppBar(),
-      backgroundColor: Colors.deepPurpleAccent,
-      body: StartBody(),
-      floatingActionButton: AddButton(),
-      endDrawer: MenuDrawer(),
-    );
-  }
-}
-
-class AddButton extends StatelessWidget {
-  const AddButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        AppNavigation.goFormPage(context);
-      },
-      child: const Icon(Icons.add),
-    );
-  }
-}
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({
@@ -61,7 +15,7 @@ class MenuDrawer extends StatelessWidget {
         padding:
             EdgeInsets.only(top: Scaffold.of(context).appBarMaxHeight ?? 0),
         child: SizedBox(
-          height: 150,
+          height: 160,
           width: MediaQuery.of(context).size.width * 0.45,
           child: Drawer(
             backgroundColor: Colors.white,

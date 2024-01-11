@@ -3,7 +3,7 @@ import 'package:hwm48/features/form_page/form_page.dart';
 import 'package:hwm48/features/loading_page/loading_page.dart';
 import 'package:hwm48/features/login/login_page.dart';
 import 'package:hwm48/features/profile/profile.dart';
-import 'package:hwm48/features/start_page/start_page.dart';
+import 'package:hwm48/features/tasks_page/tasks_page.dart';
 import 'package:hwm48/features/task_page/task_page.dart';
 import 'package:hwm48/features/welcome_page/welcome_page.dart';
 
@@ -42,7 +42,7 @@ sealed class AppNavigation {
 
   static Map<String, Widget Function(BuildContext)> routes = {
     loginPage: (context) => const LoginPage(),
-    tasksPage: (context) => const StartPage(),
+    tasksPage: (context) => const TasksPage(),
     taskPage: (context) => const TaskPage(),
     welcomePage: (context) => const WelcomePage(),
     formPage: (context) => const FormPage(),

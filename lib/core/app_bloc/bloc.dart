@@ -1,3 +1,4 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -42,7 +43,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
         doneTask: (int id, String title, String body, bool isDone) async {
           final done = await taskService.doneTask(
               id: id, title: title, content: body, isDone: isDone);
-          debugPrint(done.toString());
+
           final tasks = await taskService.getAll();
           emit(TasksState.loadTasks(tasks: tasks));
         },

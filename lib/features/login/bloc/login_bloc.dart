@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hwm48/core/domain/entities/user.dart';
 import 'package:hwm48/core/domain/services/login_repos.dart';
@@ -10,7 +11,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginReposImpl loginRepos;
   LoginBloc({required this.loginRepos}) : super(const LoginState.initial()) {
-    on<LoginEvent>((event, emit) async {
+    on<LoginEvent>(transformer: droppable(), (event, emit) async {
       await event.when(
         loginPageOpen: () {
           emit(const LoginState.initial());

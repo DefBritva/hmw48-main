@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hwm48/core/domain/entities/user.dart';
 import 'package:hwm48/core/domain/services/user_service.dart';
