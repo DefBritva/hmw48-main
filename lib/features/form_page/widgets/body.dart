@@ -9,22 +9,19 @@ class FormPageBody extends StatelessWidget {
     super.key,
     required this.titleController,
     required this.bodyController,
-    required this.focus,
-    required this.focus2,
   });
 
   final TextEditingController titleController;
   final TextEditingController bodyController;
-  final FocusNode focus;
-  final FocusNode focus2;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
         child: CustomScrollView(
+          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: SizedBox(
@@ -35,7 +32,6 @@ class FormPageBody extends StatelessWidget {
                     Flexible(
                       flex: 2,
                       child: InputWidget(
-                          focus: focus,
                           controllerText: titleController,
                           maxLen: 100,
                           hint: 'Enter task title'),
@@ -44,14 +40,16 @@ class FormPageBody extends StatelessWidget {
                     Flexible(
                       flex: 3,
                       child: InputWidget(
-                        focus: focus2,
                         controllerText: bodyController,
                         maxLen: 20000,
                         hint: ' Enter task text',
                       ),
                     ),
-                    const SizedBox(
-                      height: 50,
+                    const Flexible(
+                      flex: 1,
+                      child: SizedBox(
+                        height: 50,
+                      ),
                     ),
                     Builder(builder: (context) {
                       final state = context.read<TasksBloc>().state;
@@ -87,9 +85,10 @@ class FormPageBody extends StatelessWidget {
                 ),
               ),
             ),
-            focus.hasFocus || focus2.hasFocus
-                ? const SliverToBoxAdapter(
-                    child: SizedBox(height: 250),
+            MediaQuery.of(context).viewInsets.bottom != 0
+                ? SliverToBoxAdapter(
+                    child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.42),
                   )
                 : const SliverToBoxAdapter(
                     child: SizedBox(height: 0),

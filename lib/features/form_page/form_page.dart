@@ -10,15 +10,11 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
-  final focus = FocusNode();
-  final focus2 = FocusNode();
   final titleController = TextEditingController();
   final bodyController = TextEditingController();
 
   @override
   void dispose() {
-    focus.dispose();
-    focus2.dispose();
     titleController.dispose();
     bodyController.dispose();
     super.dispose();
@@ -41,8 +37,6 @@ class _FormPageState extends State<FormPage> {
         resizeToAvoidBottomInset: false,
         appBar: FormPageAppBar(),
         body: FormPageBody(
-          focus: focus,
-          focus2: focus2,
           titleController: titleController,
           bodyController: bodyController,
         ),

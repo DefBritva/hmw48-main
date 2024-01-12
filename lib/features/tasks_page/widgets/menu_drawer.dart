@@ -35,7 +35,7 @@ class MenuDrawer extends StatelessWidget {
                         .read<TasksBloc>()
                         .add(const TasksEvent.deleteAllCompleted());
                   },
-                  child: const Text('remove all completed'),
+                  child: const Text('remove completed'),
                 ),
                 TextButton(
                   onPressed: () {

@@ -9,27 +9,45 @@ class WelcomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-        child: CustomScrollView(physics: ClampingScrollPhysics(), slivers: [
-      SliverToBoxAdapter(
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 25),
-              Text(
+    return SafeArea(
+        child: SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: const Column(
+        children: [
+          Flexible(
+              flex: 1,
+              child: SizedBox(
+                height: 25,
+              )),
+          Flexible(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Text(
                 'Welcome!',
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.white,
                 ),
               ),
-              NoteImage(),
-              GetStartedButton(),
-              SizedBox(height: 50)
-            ],
+            ),
           ),
-        ),
-      )
-    ]));
+          Flexible(
+            flex: 6,
+            child: Align(
+              alignment: Alignment.center,
+              child: NoteImage(),
+            ),
+          ),
+          Flexible(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: GetStartedButton(),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 }
