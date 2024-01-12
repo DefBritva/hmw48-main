@@ -6,15 +6,18 @@ class InputWidget extends StatelessWidget {
     required this.controllerText,
     required this.maxLen,
     required this.hint,
+    required this.focus,
   });
 
   final TextEditingController controllerText;
   final int maxLen;
   final String hint;
+  final FocusNode focus;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      focusNode: focus,
       textAlign: TextAlign.center,
       textAlignVertical: TextAlignVertical.center,
       maxLength: maxLen,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hwm48/core/app_bloc/bloc.dart';
 import 'package:hwm48/core/auth_bloc/auth_bloc.dart';
 import 'package:hwm48/core/presentation/widgets/app_bar.dart';
 
@@ -30,6 +31,9 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
                           actions: [
                             TextButton(
                               onPressed: () {
+                                context
+                                    .read<TasksBloc>()
+                                    .add(const TasksEvent.deleteAllTasks());
                                 context
                                     .read<AuthBloc>()
                                     .add(const AuthEvent.userLogout());
